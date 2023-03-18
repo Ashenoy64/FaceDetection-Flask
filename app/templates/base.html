@@ -17,6 +17,11 @@
   </script>
 </head>
 <body>
+        <nav>
+          <a href="{{url_for('main.index')}}">Home</a>
+          <a href="{{url_for('upload.upload_form')}}">Upload</a>
+          <a href="{{url_for('videos.display_all')}}">Inspect</a>
+        </nav>
         {% block content %} {% endblock %}
 </body>
 </html>
