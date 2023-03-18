@@ -2,28 +2,32 @@
 	{% block title %} Document{% endblock %}
 
 {% block content %}
-	<h2>Select a video to upload and play</h2>
+<div class="bg-no-repeat bg-center h-3/4 w-3/4 m-auto bg-cover bg-origin-content bg-center rounded-md py-8" style="background-image: url(https://wallpapersmug.com/u/01ae32/minimalism-sunset.jpg);">
+	<h2 class="text-white font-sans h-8 text-center">Select a video to upload and analyse</h2>
 <div>
 	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
+	{% if messages %}
 		<ul>
 		{% for message in messages %}
-		  <li>{{ message }}</li>
+		<li class="text-white font-sans px-4 py-4 text-center">{{ message }}</li>
 		{% endfor %}
-	  {% endif %}
+	{% endif %}
 	{% endwith %}
 	{% if filename %}
-		<li>Sucessfully uploaded {{filename}}</li>		
+		<li class="text-white text-center py-8">Sucessfully uploaded {{filename}}</li>		
 	{% endif %}
 	</ul> 
 </div>
 <form method="post" action="/upload/post" enctype="multipart/form-data">
-    <dl>
+	<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center py-4" for="file_input">Upload file</label>
+	<dl>
 		<p>
-			<input type="file" name="file" autocomplete="off" required>
+			<input  type="file" name="file" autocomplete="off" class=" text-center block w-1/3 mx-auto text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
 		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Upload">
+		<p class="mt-1 text-sm text-gray-500 dark:text-gray-300 text-center py-4" id="file_input_help">Mp4,MoV of 128MB</p>
+	</dl>
+	<p class="w-20 mx-auto">
+		<input type="submit" value="Upload" class="bg-teal-400 w-20">
 	</p>
+</div>
 {% endblock %}

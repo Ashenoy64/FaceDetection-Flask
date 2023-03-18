@@ -7,9 +7,10 @@ from PIL import Image
 import dlib
 from time import time
 import matplotlib.pyplot as plt
-
+facesDetected=[] 
+opencv_dnn_model = cv2.dnn.readNetFromCaffe(prototxt=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','deploy.prototxt')),caffeModel=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','res10_300x300_ssd_iter_140000_fp16.caffemodel')))
 def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True):
-    facesDetected=[]
+    
     image_height, image_width, _ = image.shape
 
     output_image = image.copy()
@@ -64,10 +65,14 @@ def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True
         cv2.imwrite('output.jpg', output_image)
         return results, facesDetected
 
+    
+
+
+
+
+
 def recognizeFace(frameNumber,filename):
     facesDetected=[] 
-    opencv_dnn_model = cv2.dnn.readNetFromCaffe(prototxt="models/deploy.prototxt",
-                                            caffeModel="models/res10_300x300_ssd_iter_140000_fp16.caffemodel")
     video=cv2.VideoCapture(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'static','uploads',filename)))
     no=0
     while video.isOpened():
@@ -92,10 +97,9 @@ def encodeImages(faceDetected):
 def display_video(filename):
     files=os.listdir(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'static','uploads')))
     if request.method=='POST':
-        print("Entered")
         frameNumber=request.form.get('frameNumber')
         faceData=encodeImages(recognizeFace(frameNumber,filename))
-        print(faceData,"DOne")
+        print(faceData,"Done")
         return render_template('videos/videos.html',files=files,filename=filename,faceData=faceData)
     else:
         return render_template('videos/videos.html',files=files,filename=filename)

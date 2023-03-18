@@ -68,7 +68,7 @@ def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True
 
 
 
-video=cv2.VideoCapture("filename.avi")
+video=cv2.VideoCapture(0)
 while video.isOpened():
     ret,frame=video.read()
     if ret:

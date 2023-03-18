@@ -2,9 +2,16 @@
     {% block title %} Dedsec|Home {% endblock %}
 
 {% block content %}
-    <div class="content">
-        <h2>This is the landing page</h2>
+<div class="content">
+    <!-- <h2 class="text-white px-24">welcome to dedsec</h2> -->
+    <img src="{{url_for('static',filename='assets/welcometo.png')}}" alt="dedsec" class="mx-20 my-0 h-20 ">
+    <img src="{{url_for('static',filename='assets/dedsecb.png')}}" alt="dedsec" class="mx-20 my-0 h-28 ">
+    <div class="px-12 py-16 ">
+        <a href="{{url_for('upload.upload_form')}}">
+            <img src="{{url_for('static',filename='assets/franpr.png')}}" alt="dedsec" class="mx-10 h-40 ">
+        </a>
     </div>
+</div>
 {% endblock %}
 
 
