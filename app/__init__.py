@@ -6,6 +6,8 @@ from app.extensions import db
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.debug=True
+
     app.secret_key="monishbolimaga"
     app.config['MAX_CONTENT_LENGTH'] = 128 * 1024 * 1024
     # Initialize Flask extensions here
@@ -23,6 +25,7 @@ def create_app(config_class=Config):
 
     @app.route('/test/')
     def test_page():
+        print("Hello")
         return '<h1>Testing the Flask Application Factory Pattern</h1>'
 
     return app

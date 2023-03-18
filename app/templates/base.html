@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <style>
-        
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
-    <div class="content">
         {% block content %} {% endblock %}
-    </div>
 </body>
 </html>
