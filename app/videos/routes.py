@@ -6,7 +6,7 @@ import io
 from PIL import Image  
 import dlib
 from time import time
-import matplotlib.pyplot as plt
+import base64
 facesDetected=[] 
 opencv_dnn_model = cv2.dnn.readNetFromCaffe(prototxt=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','deploy.prototxt')),caffeModel=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','res10_300x300_ssd_iter_140000_fp16.caffemodel')))
 def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True):
@@ -62,7 +62,11 @@ def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True
         
         
     else:
-        cv2.imwrite('output.jpg', output_image)
+        for i in facesDetected:
+            try:
+                cv2.imwrite('output.jpg',i)
+            except:
+                pass
         return results, facesDetected
 
     
@@ -77,19 +81,29 @@ def recognizeFace(frameNumber,filename):
     no=0
     while video.isOpened():
         ret,frame=video.read()
-        if ret and no==frameNumber:
+
+        if no==frameNumber:
+            print("entered")
             results,facesDetected=cvDnnDetectFaces(frame, opencv_dnn_model, display=False)
-        else:
-            break
+           
+            return facesDetected
         no+=1
+    
     return facesDetected
     
 
 def encodeImages(faceDetected):
     faceData=[]
     for i in faceDetected:
-        img=Image.fromarray(i)
-        faceData.append(img)
+        try:
+            color_coverted = cv2.cvtColor(i, cv2.COLOR_BGR2RGB)
+            im=Image.fromarray(color_coverted)
+            data=io.BytesIO()
+            im.save(data,"JPEG")
+            encode_img_data=base64.b64encode(data.getvalue())
+            faceData.append(encode_img_data.decode())
+        except:
+            pass
     return faceData
 
 
@@ -97,12 +111,16 @@ def encodeImages(faceDetected):
 def display_video(filename):
     files=os.listdir(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'static','uploads')))
     if request.method=='POST':
-        frameNumber=request.form.get('frameNumber')
-        faceData=encodeImages(recognizeFace(frameNumber,filename))
+        frameNumber=request.form['data']
+
+        facesDetected=recognizeFace(int(frameNumber),filename)
+
+        print(facesDetected)
+        faceData=encodeImages(facesDetected)
         print(faceData,"Done")
         return render_template('videos/videos.html',files=files,filename=filename,faceData=faceData)
-    else:
-        return render_template('videos/videos.html',files=files,filename=filename)
+    
+    return render_template('videos/videos.html',files=files,filename=filename)
 
 @bp.route("/")
 def display_all():

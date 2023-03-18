@@ -16,8 +16,12 @@
 			<button class="text-white" onclick="getTime()">Inspect</button>
 		</div>
 	</div>
-	<div class="bg-white pl-8 w-1/3">
-			<h2 class="text-black">hello</h2>
+	<div class="bg-white pl-8 w-1/3 text-black">
+				{% for i in faceData %}
+					<img width="100" height="100" id="picture" src="data:image/jpeg;base64,{{i}}">
+				{% endfor %}
+				
+
 	</div>
 </div>
 		<script>
@@ -29,7 +33,8 @@
 					$.ajax({
 					  type : 'POST',
 					  url : "{{url_for('videos.display_video',filename=filename )}}",
-					  data : {'data':frameNumber}
+					  data : {'data':frameNumber},
+					  success:function(response){ document.write(response)}
 					});
 					 });
 			}
