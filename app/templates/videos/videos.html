@@ -18,8 +18,14 @@
 			function getTime()
 			{
 				let video=document.getElementById("vid")
-				let frameNumber=parseFloat(video.currentTime,10)*24;
-				console.log(Math.floor(frameNumber))
+				let frameNumber=Math.floor(parseFloat(video.currentTime,10)*24);
+				$(document).ready(function(){
+					$.ajax({
+					  type : 'POST',
+					  url : "{{url_for('videos.display_video',filename=filename )}}",
+					  data : {'data':frameNumber}
+					});
+					 });
 			}
 		</script>
 	</div>

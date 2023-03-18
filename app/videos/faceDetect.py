@@ -1,3 +1,5 @@
+
+    
 import os
 import cv2
 import dlib
@@ -61,8 +63,6 @@ def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True
     else:
         cv2.imwrite('output.jpg', output_image)
         return results, facesDetected
-    
-
 
     
 
