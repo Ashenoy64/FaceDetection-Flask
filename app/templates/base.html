@@ -17,23 +17,23 @@
   </script>
 </head>
 <body>
-        <ul class="flex flex-row bg-black">
-          <li>
-            <a href="{{url_for('main.index')}}" clas>
-              <img src="{{url_for('static',filename='assets/logo.png')}}" alt="dedsec" class="mx-10 my-0 h-40 ">
-            </a>
-          </li>
-          <li class="align-middle">
-            <a href="{{url_for('upload.upload_form')}}">
-              <img src="{{url_for('static',filename='assets/upload.png')}}" alt="dedsec" class="ml-[720px] my-16 h-8 w-40">
-            </a>
-          </li>
-          <li>
-            <a href="{{url_for('videos.display_all')}}">
-              <img src="{{url_for('static',filename='assets/inspect.png')}}" alt="dedsec" class="mx-10 my-16 h-8 w-40 ">
-            </a>
-          </li>
-        </ul>
+  <div class="flex flex-row justify-between bg-black">
+    <a href="{{url_for('main.index')}}">
+      <img src="{{url_for('static',filename='assets/logo.png')}}" alt="dedsec" class="mx-10 my-0 h-40 ">
+    </a>
+    <ul class="flex flex-row ">
+      <li class="align-middle">
+        <a href="{{url_for('upload.upload_form')}}">
+          <img src="{{url_for('static',filename='assets/upload.png')}}" alt="dedsec" class="ml-[720px] my-16 h-8 w-40">
+        </a>
+      </li>
+      <li>
+        <a href="{{url_for('videos.display_all')}}">
+          <img src="{{url_for('static',filename='assets/inspect.png')}}" alt="dedsec" class="mx-10 my-16 h-8 w-40 ">
+        </a>
+      </li>
+    </ul>
+  </div>  
         {% block content %} {% endblock %}
 </body>
 </html>
