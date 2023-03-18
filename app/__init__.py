@@ -1,5 +1,4 @@
 from flask import Flask
-
 from config import Config
 from app.extensions import db
 
@@ -17,12 +16,11 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    from app.display import bp as display_bp
-    app.register_blueprint(display_bp,url_prefix='/display')
-
     from app.upload import bp as upload_bp
     app.register_blueprint(upload_bp,url_prefix='/upload')
 
+    from app.inspection import bp as inspection_bp
+    app.register_blueprint(inspection_bp,url_prefix='/inspection')
     @app.route('/test/')
     def test_page():
         print("Hello")
