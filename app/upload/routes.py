@@ -1,8 +1,12 @@
 import os
-from flask import render_template,redirect,request,flash
+from flask import render_template,redirect,request,flash,url_for
 from app.upload import bp
 from werkzeug.utils import secure_filename
 
+@bp.route('/<filename>')
+def display_video(filename):
+	#print('display_video filename: ' + filename)
+	return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 @bp.route('/')
 def upload_form():
