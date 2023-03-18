@@ -3,11 +3,6 @@ from flask import render_template,redirect,request,flash,url_for
 from app.upload import bp
 from werkzeug.utils import secure_filename
 
-@bp.route('/<filename>')
-def display_video(filename):
-	#print('display_video filename: ' + filename)
-	return redirect(url_for('static', filename='uploads/' + filename), code=301)
-
 @bp.route('/')
 def upload_form():
 	return render_template('upload/upload.html')
@@ -26,4 +21,4 @@ def upload_video():
 		file.save(os.path.join('app/static/uploads/', filename))
 		#print('upload_video filename: ' + filename)
 		flash('Video successfully uploaded and displayed below')
-		return render_template('upload/upload.html', filename=filename)
+		return render_template('upload/upload.html',filename=filename)

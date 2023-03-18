@@ -21,6 +21,10 @@ def create_app(config_class=Config):
 
     from app.inspection import bp as inspection_bp
     app.register_blueprint(inspection_bp,url_prefix='/inspection')
+
+    from app.videos import bp as videos_bp
+    app.register_blueprint(videos_bp,url_prefix='/videos')
+
     @app.route('/test/')
     def test_page():
         print("Hello")

@@ -3,35 +3,20 @@
 
 {% block content %}
 	<h2>Select a video to upload and play</h2>
-<p>
+<div>
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
 		<ul>
 		{% for message in messages %}
 		  <li>{{ message }}</li>
 		{% endfor %}
-		</ul>
 	  {% endif %}
 	{% endwith %}
-</p>
-{% if filename %}
-	<div style="margin: 10px auto;">
-		<video width="640" height="480"  controls="controls"  id="vid">
-			<source src="{{ url_for('upload.display_video', filename=filename) }}" type="video/mp4"></source>
-		</video>
-		<div style="margin:10px">
-			<button onclick="getTime()">Inspect</button>
-		</div>
-		<script>
-			function getTime()
-			{
-				let video=document.getElementById("vid")
-				let frameNumber=parseFloat(video.currentTime,10)*24;
-				console.log(Math.floor(frameNumber))
-			}
-		</script>
-	</div>
-{% endif %}
+	{% if filename %}
+		<li>Sucessfully uploaded {{filename}}</li>		
+	{% endif %}
+	</ul> 
+</div>
 <form method="post" action="/upload/post" enctype="multipart/form-data">
     <dl>
 		<p>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{% endblock %}
+
+{%block content%}
+
+{%if filename %}
+	<div style="margin: 10px auto;">
+		<video width="640" height="480"  controls="controls"  id="vid">
+			<source src="{{ url_for('static',filename='uploads/'+filename) }}" type="video/mp4" id="src"></source>
+		</video>
+		<div style="margin:10px">
+			<button onclick="getTime()">Inspect</button>
+		</div>
+		<script>
+			function getTime()
+			{
+				let video=document.getElementById("vid")
+				let frameNumber=parseFloat(video.currentTime,10)*24;
+				console.log(Math.floor(frameNumber))
+			}
+		</script>
+	</div>
+{%endif%}
+
+    {% for i in files %}
+        <a href="{{url_for('videos.display_video',filename=i )}}">{{i}}</a><br>
+    {% endfor %}
+{%endblock%}
