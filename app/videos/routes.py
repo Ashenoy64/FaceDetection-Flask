@@ -7,10 +7,10 @@ from PIL import Image
 import dlib
 from time import time
 import base64
-facesDetected=[] 
+
 opencv_dnn_model = cv2.dnn.readNetFromCaffe(prototxt=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','deploy.prototxt')),caffeModel=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','res10_300x300_ssd_iter_140000_fp16.caffemodel')))
 def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True):
-    
+    facesDetected=[] 
     image_height, image_width, _ = image.shape
 
     output_image = image.copy()
@@ -93,7 +93,7 @@ def recognizeFace(frameNumber,filename):
     
 
 def encodeImages(faceDetected):
-    faceData=[]
+    Data=[]
     for i in faceDetected:
         try:
             color_coverted = cv2.cvtColor(i, cv2.COLOR_BGR2RGB)
@@ -101,10 +101,10 @@ def encodeImages(faceDetected):
             data=io.BytesIO()
             im.save(data,"JPEG")
             encode_img_data=base64.b64encode(data.getvalue())
-            faceData.append(encode_img_data.decode())
+            Data.append(encode_img_data.decode())
         except:
             pass
-    return faceData
+    return Data
 
 
 @bp.route('/<filename>',methods=['POST','GET'])
@@ -114,12 +114,9 @@ def display_video(filename):
         frameNumber=request.form['data']
 
         facesDetected=recognizeFace(int(frameNumber),filename)
-
-        print(facesDetected)
         faceData=encodeImages(facesDetected)
-        print(faceData,"Done")
+        print(len(faceData),"Done")
         return render_template('videos/videos.html',files=files,filename=filename,faceData=faceData)
-    
     return render_template('videos/videos.html',files=files,filename=filename)
 
 @bp.route("/")
