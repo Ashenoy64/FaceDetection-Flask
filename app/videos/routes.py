@@ -3,8 +3,7 @@ from flask import render_template,redirect,request,flash,url_for
 from app.videos import bp
 import cv2
 import io
-from PIL import Image  
-import dlib
+from PIL import Image 
 from time import time
 import base64
 
