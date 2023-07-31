@@ -71,7 +71,7 @@ if __name__ == "__main__":
     while video.isOpened():
         ret, frame = video.read()
         if ret:
-            cvDnnDetectFaces(frame, opencv_dnn_model, display=False)
+            cvDnnDetectFaces(frame, opencv_dnn_model, display=True)
         else:
             break
         if cv2.waitKey(0) & 0xFF == ord('q'):
