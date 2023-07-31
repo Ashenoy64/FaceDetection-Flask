@@ -2,7 +2,7 @@
 	{% block title %} Document{% endblock %}
 
 {% block content %}
-<div class="bg-no-repeat bg-center h-[640px] w-1/2 m-auto bg-cover bg-origin-content bg-center rounded-md py-8 border-solid border-2 border-green-500 rounded-lg" style="background-image: url(https://64.media.tumblr.com/5cc93a2f8e650f3454e9404f75c37689/tumblr_npemzz3nci1qkjlt5o1_500.png);">
+<div class="bg-no-repeat bg-center h-[500px] w-1/2 m-auto bg-cover bg-origin-content bg-center rounded-md py-8 border-solid border-2 border-green-500 rounded-lg" style="background-image: url(https://64.media.tumblr.com/5cc93a2f8e650f3454e9404f75c37689/tumblr_npemzz3nci1qkjlt5o1_500.png);">
 	<h2 class="text-white font-sans h-8 text-2xl text-center">Select a video to Upload and Examine</h2>
 <div>
 	{% with messages = get_flashed_messages() %}
@@ -24,16 +24,12 @@
 		<p>
 			<input  type="file" name="file" autocomplete="off" class=" text-center block w-2/3 mx-auto text-sm text-green-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-green-500 dark:border-gray-600 dark:placeholder-gray-400" required>
 		</p>
-		<p class="mt-1 text-gray-500 dark:text-rose-500 text-xl font-semibold text-center py-4" id="file_input_help">Mp4,MoV of 128MB</p>
+		<p class="mt-1 text-gray-500 dark:text-white text-xl font-semibold text-center py-4" id="file_input_help">Mp4,MoV of 128MB</p>
 	</dl>
 	<p class="w-20 mx-auto">
 		<input type="submit" value="Upload" class="bg-teal-400 w-20">
 	</p>
-	<!-- <div>
-		<a href="{{url_for('videos.display_all')}}">
-			<img src="{{url_for('static',filename='assets/inspect.png')}}" alt="dedsec" class="mx-10 my-16 h-5 w-auto">
-		  </a>
-	</div> -->
+
 </div>
 
 {% endblock %}

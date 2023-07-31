@@ -11,8 +11,10 @@ import base64
 opencv_dnn_model = cv2.dnn.readNetFromCaffe(prototxt=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','deploy.prototxt')),caffeModel=os.path.realpath(os.path.join(os.path.dirname(__file__), 'models','res10_300x300_ssd_iter_140000_fp16.caffemodel')))
 def cvDnnDetectFaces(image, opencv_dnn_model, min_confidence=0.3, display = True):
     facesDetected=[] 
-    image_height, image_width, _ = image.shape
-
+    try:
+        image_height, image_width, _ = image.shape
+    except:
+        return [],[]
     output_image = image.copy()
 
     preprocessed_image = cv2.dnn.blobFromImage(image, scalefactor=1.0, size=(300, 300),
@@ -83,9 +85,7 @@ def recognizeFace(frameNumber,filename):
         ret,frame=video.read()
 
         if no==frameNumber:
-            print("entered")
             results,facesDetected=cvDnnDetectFaces(frame, opencv_dnn_model, display=False)
-           
             return facesDetected
         no+=1
     
@@ -114,9 +114,14 @@ def display_video(filename):
         frameNumber=request.form['data']
 
         facesDetected=recognizeFace(int(frameNumber),filename)
-        faceData=encodeImages(facesDetected)
-        print(len(faceData),"Done")
-        return render_template('videos/videos.html',files=files,filename=filename,faceData=faceData)
+        if(not facesDetected or len(facesDetected)==0):
+            return render_template('videos/videos.html',files=files,filename=filename,message="Not Detected")    
+        try:
+            faceData=encodeImages(facesDetected)
+            return render_template('videos/videos.html',files=files,filename=filename,faceData=faceData)
+        except:
+            return render_template('videos/videos.html',files=files,filename=filename,message="Detection Failed")
+        
     return render_template('videos/videos.html',files=files,filename=filename)
 
 @bp.route("/")
