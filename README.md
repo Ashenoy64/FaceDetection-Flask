@@ -70,4 +70,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Thank you for exploring the FaceDetection-Flask project! Whether you want to use the web application for easy video analysis or run the face detection script independently, we hope you find it helpful. If you have any questions or feedback, feel free to reach out. Happy face det
+Thank you for exploring the FaceDetection-Flask project!
